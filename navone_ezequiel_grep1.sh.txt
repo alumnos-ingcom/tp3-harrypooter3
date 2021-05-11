@@ -1,0 +1,34 @@
+echo "Punto 1: Imprima todas las líneas que contengan un número de teléfono con una extensión (la letra x o X seguida de cuatro dígitos)."
+
+grep -Ei "[0-9]{1,3}-[0-9]{1,3}-[0-9]{1,4}[[:space:]][x]" grepdata.txt 
+
+#-Ei habilita mas patrones y con la i saco la diferencia de caracteres en mayusculas y minusculas, el space determina un espacio en blanco y la x un caracter.
+
+echo "Punto 2: Imprima todas las líneas que comiencen con tres dígitos seguidos de un espacio en blanco. Su respuesta debe usar el especificador de repetición '{'y '}'."
+
+grep -E "^[[:digit:]]{3}[[:space:]]" grepdata.txt
+
+echo "Punto 3: Imprime todas las líneas que contienen una fecha. Pista: este es un patrón muy simple. No tiene que funcionar con ningún año antes del 2000."
+
+grep -E "^[[:alpha:]][[:alpha:]][[:alpha:]].[[:space:]][[:digit:]]
+{1,2}.[[:space:]][2-9]" grepdata.txt
+
+#Se filtran las primeras tres letras con el comando alpha, seguido de un caracter cualquiera (en este caso un punto o coma), seguido un espacio y un digito de tamaño minimo 1 y maximo 2 (para fechas del 1 al 31), seguido otro caracter un espacio y un rango de 2 a 9 para años superiores al 2000.
+
+echo "Punto 4: Imprime todas las líneas que contienen una vocal (a, e, i, o o u) seguidas de un solo carácter seguido de la misma vocal nuevamente. Por lo tanto, encontrará "eve" o "adam" pero no "vera". Pista: '('y ')'"
+
+grep -Ei "[a][[:alnum:]][a]|[e][[:alnum:]][e]|[i][[:alnum:]][i]|[o]
+[[:alnum:]][o]|[u][[:alnum:]][u]" grepdata.txt
+
+# Se busca vocales individualmente seguidos de un caracter alphanumerico y otra vez esa vocal, separado cada comando con un | para que filtre las demas vocales
+
+echo "Punto 5: Imprima todas las líneas que no comiencen con una S mayúscula."
+
+grep -Ev "^S" grepdata.txt
+
+#El comando -ev (-e y -v) trae e invierte a las coincidencias, la casita ^ da el comienzo de la oración.
+
+echo "Punto 6: Imprima todas las lineas que contengan una dirección de correo electrónica (solo considerar palabras que contengan un '@')"
+
+grep -E -i -o "\b[[:alnum:]]+?\@[[:alpha:]]+?\.[[:alpha:]]+?\b" grepdata.txt 
+
